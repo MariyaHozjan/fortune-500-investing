@@ -4,14 +4,14 @@ import pandas as pd
 
 # Normalized column sum method
 def norm(x):
-    """Normalize the pairwise comparison matrix."""
+    #Normalize the pairwise comparison matrix
     col_sum = np.sum(x, axis=0)
     return np.array([[round(x[i, j] / col_sum[j], 3) for j in range(x.shape[1])] for i in range(x.shape[0])])
 
 
 # Geometric mean method
 def geomean(x):
-    """Calculate geometric mean for each row."""
+    #Calculate geometric mean for each row
     z = [np.prod(x[i]) ** (1 / x.shape[0]) for i in range(x.shape[0])]
     return np.array(z)
 

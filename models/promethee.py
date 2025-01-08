@@ -1,43 +1,5 @@
-"""
-import numpy as np
-def promethee(matrix, weights, types, preference_function):
-
-    num_alternatives = matrix.shape[0]
-    if num_alternatives == 0 or matrix.shape[1] == 0:
-        raise ValueError("`matrix` must have at least one row and one column.")
-
-    # Initialize preference matrix
-    preference_matrix = np.zeros((num_alternatives, num_alternatives))
-
-    # Compute pairwise preferences using preference_function
-    for i in range(num_alternatives):
-        for j in range(num_alternatives):
-            if i != j:
-                preference_sum = 0
-                for k in range(matrix.shape[1]):
-                    # Compute the weighted difference for this criterion
-                    difference = matrix[i, k] - matrix[j, k] if types[k] == 1 else matrix[j, k] - matrix[i, k]
-
-                    # Apply the preference function to the difference
-                    preference_value = preference_function(difference)
-
-                    # Multiply the result by the weight
-                    preference_sum += weights[k] * preference_value
-
-                # Store the aggregated preference value in the matrix
-                preference_matrix[i, j] = preference_sum
-
-    # Calculate net flows
-    net_flows = preference_matrix.sum(axis=1) - preference_matrix.sum(axis=0)
-
-    return net_flows
-
-"""
 from numpy import *
 import math
-
-# weights of criteria
-w = array([0.4, 0.3, 0.3])
 
 def make_diff_fn(maximize):
     if maximize:
@@ -145,7 +107,6 @@ def promethee(x, p_fn, w):
                                       uni_cal(x[:, i:i + 1], p_fn[i]))
 
     # print the weighted unicriterion preference
-    # net flows
     for i in range(size(weighted_uni_net_flows, 1)):
         k = 0
         for j in range(size(weighted_uni_net_flows, 0)):

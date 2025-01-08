@@ -1,7 +1,7 @@
 import numpy as np
-types = np.array([1, 1, 1])
 
 def topsis(matrix, weights):
+    types = np.ones(len(weights))
     weighted_matrix = matrix * weights
     ideal_positive = np.where(types == 1, weighted_matrix.max(axis=0), weighted_matrix.min(axis=0))
     ideal_negative = np.where(types == 1, weighted_matrix.min(axis=0), weighted_matrix.max(axis=0))
